@@ -25,6 +25,8 @@ public class Cli {
 				IO.println(LocalTime.now());
 			}else if (command.equals("datetime")){
 				IO.println(LocalDateTime.now());
+			}else if (command.equals("useraccount")){
+				IO.println(System.getProperties().getProperty("user.name"));
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
