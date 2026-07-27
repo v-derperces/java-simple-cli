@@ -20,13 +20,15 @@ public class Cli {
 			if (command.equals("exit")) {
 				break; // Forces exit of the while loop
 			}else if (command.equals("date")) {
-				IO.println(LocalDate.now());
+				System.out.println(LocalDate.now());
 			}else if (command.equals("time")) {
-				IO.println(LocalTime.now());
+				System.out.println(LocalTime.now());
 			}else if (command.equals("datetime")){
-				IO.println(LocalDateTime.now());
+				System.out.println(LocalDateTime.now());
 			}else if (command.equals("useraccount")){
-				IO.println(System.getProperties().getProperty("user.name"));
+				System.out.println(System.getProperties().getProperty("user.name"));
+			}else if (command.equals("userhome")){
+				System.out.println(System.getProperties().getProperty("user.home"));
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
