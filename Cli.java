@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class Cli {
 
@@ -22,6 +23,8 @@ public class Cli {
 				IO.println(LocalDate.now());
 			}else if (command.equals("time")) {
 				IO.println(LocalTime.now());
+			}else if (command.equals("datetime")){
+				IO.println(LocalDateTime.now());
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
