@@ -29,9 +29,15 @@ public class Cli {
 				System.out.println(System.getProperties().getProperty("user.name"));
 			}else if (command.equals("userhome")){
 				System.out.println(System.getProperties().getProperty("user.home"));
-			}else if(command.equals("os")){
+			}else if (command.equals("os")){
 				System.out.println(System.getProperties().getProperty("os.name") + " (" + System.getProperties().getProperty("os.version") + ")");
-
+			}else if (command.contains("printenv")){
+				String v = command.replace("printenv", "").trim();
+				if(v.isEmpty() || System.getenv(v) == null){
+					System.out.println("");
+				}else{
+					System.out.println(System.getenv(v));
+				}
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
