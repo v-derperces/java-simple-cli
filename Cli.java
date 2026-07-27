@@ -38,6 +38,9 @@ public class Cli {
 				}else{
 					System.out.println(System.getenv(v));
 				}
+			}else if (command.startsWith("echo") && (command.length() == "echo".length() || Character.isSpaceChar(command.charAt("echo".length())))){
+				String text = command.replace("echo", "").stripLeading();
+				System.out.println(text);
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
