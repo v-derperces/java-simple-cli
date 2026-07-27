@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Cli {
 
@@ -16,6 +17,9 @@ public class Cli {
 			String output = ""; // A variable named output of type String
 			if (command.equals("exit")) {
 				break; // Forces exit of the while loop
+			}else if (command.equals("date")) {
+				IO.println(LocalDate.now());
+				break;
 			} else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
