@@ -31,7 +31,7 @@ public class Cli {
 				output = System.getProperties().getProperty("user.home");
 			}else if (command.equals("os")){
 				output = System.getProperties().getProperty("os.name") + " (" + System.getProperties().getProperty("os.version") + ")";
-			}else if (command.contains("printenv")){
+			}else if (command.startsWith("printenv")){
 				String v = command.replace("printenv", "").trim();
 				output = "";
 				if(System.getenv(v) != null){
