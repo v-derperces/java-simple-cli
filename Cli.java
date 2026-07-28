@@ -16,6 +16,12 @@ public class Cli {
 		System.out.print("> "); // Prompt
 		while (true) { // Infinite loop
 			String command = scanner.nextLine(); // Get input from console as a string
+			String[] decomposition = command.split(" ", 2);
+			String arguments = "";
+			if(decomposition.length >= 2){
+				command = decomposition[0];
+				arguments = decomposition[1];
+			}
 			String output = ""; // A variable named output of type String
 			if (command.equals("exit")) {
 				break; // Forces exit of the while loop
@@ -26,19 +32,17 @@ public class Cli {
 			}else if (command.equals("datetime")){
 				output = LocalDateTime.now().toString();
 			}else if (command.equals("useraccount")){
-				output = System.getProperties().getProperty("user.name");
+				output = System.getProperty("user.name");
 			}else if (command.equals("userhome")){
-				output = System.getProperties().getProperty("user.home");
+				output = System.getProperty("user.home");
 			}else if (command.equals("os")){
-				output = System.getProperties().getProperty("os.name") + " (" + System.getProperties().getProperty("os.version") + ")";
-			}else if (command.startsWith("printenv")){
-				String v = command.replace("printenv", "").trim();
-				output = "";
-				if(System.getenv(v) != null){
-					output = System.getenv(v);
+				output = System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")";
+			}else if (command.equals("printenv")){
+				if(System.getenv(arguments) != null){
+					output = System.getenv(arguments);
 				}
-			}else if (command.startsWith("echo") && (command.length() == "echo".length() || Character.isSpaceChar(command.charAt("echo".length())))){
-				output = command.replace("echo", "").stripLeading();
+			}else if (command.equals("echo")){
+				output = arguments.stripLeading();
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
