@@ -20,27 +20,25 @@ public class Cli {
 			if (command.equals("exit")) {
 				break; // Forces exit of the while loop
 			}else if (command.equals("date")) {
-				System.out.println(LocalDate.now());
+				output = LocalDate.now().toString();
 			}else if (command.equals("time")) {
-				System.out.println(LocalTime.now());
+				output = LocalTime.now().toString();
 			}else if (command.equals("datetime")){
-				System.out.println(LocalDateTime.now());
+				output = LocalDateTime.now().toString();
 			}else if (command.equals("useraccount")){
-				System.out.println(System.getProperties().getProperty("user.name"));
+				output = System.getProperties().getProperty("user.name");
 			}else if (command.equals("userhome")){
-				System.out.println(System.getProperties().getProperty("user.home"));
+				output = System.getProperties().getProperty("user.home");
 			}else if (command.equals("os")){
-				System.out.println(System.getProperties().getProperty("os.name") + " (" + System.getProperties().getProperty("os.version") + ")");
+				output = System.getProperties().getProperty("os.name") + " (" + System.getProperties().getProperty("os.version") + ")";
 			}else if (command.contains("printenv")){
 				String v = command.replace("printenv", "").trim();
-				if(v.isEmpty() || System.getenv(v) == null){
-					System.out.println("");
-				}else{
-					System.out.println(System.getenv(v));
+				output = "";
+				if(System.getenv(v) != null){
+					output = System.getenv(v);
 				}
 			}else if (command.startsWith("echo") && (command.length() == "echo".length() || Character.isSpaceChar(command.charAt("echo".length())))){
-				String text = command.replace("echo", "").stripLeading();
-				System.out.println(text);
+				output = command.replace("echo", "").stripLeading();
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
