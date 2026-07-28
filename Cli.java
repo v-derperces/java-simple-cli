@@ -38,8 +38,9 @@ public class Cli {
 			}else if (command.equals("os")){
 				output = System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")";
 			}else if (command.equals("printenv")){
-				if(System.getenv(arguments) != null){
-					output = System.getenv(arguments);
+				String value = System.getenv(arguments);
+				if(value != null){
+					output = value;
 				}
 			}else if (command.equals("echo")){
 				output = arguments.stripLeading();
@@ -53,6 +54,7 @@ public class Cli {
 		scanner.close(); // Best practice, always close a stream when no more needed
 		System.out.println("Bye!");
     }
+
 
 }
 
