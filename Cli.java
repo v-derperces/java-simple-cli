@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.io.File;
+import java.util.Arrays;
 
 public class Cli {
 
@@ -49,7 +51,6 @@ public class Cli {
 				output = System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")";
 			}else if (command.equals("printenv")){
 				if(arguments.isEmpty()){
-			
 					Map<String,String> variables = System.getenv();
 					for (Map.Entry<String,String> variable : variables.entrySet()){
 						output += variable.getKey() + "=" + variable.getValue() + "\n";	
@@ -62,6 +63,14 @@ public class Cli {
 				}
 			}else if (command.equals("echo")){
 				output = arguments;
+			}else if (command.equals("ls")){
+				File file = new File(arguments);
+				if (file.isDirectory()) {
+					String[] files = file.list();
+					for(String f : files){
+					output += f + "\n";
+					}
+				}
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
