@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Cli {
 
@@ -25,7 +27,7 @@ public class Cli {
 			String arguments = "";
 			if(decomposition.length >= 2){
 				command = decomposition[0];
-				arguments = decomposition[1];
+				arguments = decomposition[1].stripLeading();
 			}
 			String output = ""; // A variable named output of type String
 			if(aliases.containsKey(command)){
@@ -46,12 +48,20 @@ public class Cli {
 			}else if (command.equals("os")){
 				output = System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")";
 			}else if (command.equals("printenv")){
-				String value = System.getenv(arguments);
-				if(value != null){
-					output = value;
+				if(arguments.isEmpty()){
+			
+					Map<String,String> variables = System.getenv();
+					for (Map.Entry<String,String> variable : variables.entrySet()){
+						output += variable.getKey() + "=" + variable.getValue() + "\n";	
+					}
+				}else {
+					String value = System.getenv(arguments);
+					if (value != null){
+						output = value;
+					}
 				}
 			}else if (command.equals("echo")){
-				output = arguments.stripLeading();
+				output = arguments;
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
