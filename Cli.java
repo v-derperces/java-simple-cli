@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 public class Cli {
 
@@ -14,6 +15,10 @@ public class Cli {
     public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in); // Listen to the standard input (console)
 		System.out.print("> "); // Prompt
+		HashMap<String,String> aliases = new HashMap<String,String>();
+		aliases.put("logout", "exit");
+		aliases.put("print", "echo");
+
 		while (true) { // Infinite loop
 			String command = scanner.nextLine(); // Get input from console as a string
 			String[] decomposition = command.split(" ", 2);
@@ -23,6 +28,9 @@ public class Cli {
 				arguments = decomposition[1];
 			}
 			String output = ""; // A variable named output of type String
+			if(aliases.containsKey(command)){
+				command = aliases.get(command);
+			}
 			if (command.equals("exit")) {
 				break; // Forces exit of the while loop
 			}else if (command.equals("date")) {
