@@ -6,7 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.io.File;
-import java.util.Arrays;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.Exception;
+import java.util.List;
+import java.util.Random;
 
 public class Cli {
 
@@ -71,6 +75,30 @@ public class Cli {
 					output += f + "\n";
 					}
 				}
+
+			}else if (command.equals("chuck")) {
+				FileReader fileReader = null;
+				try{
+					File quotes = new File("./chuck.txt");
+					fileReader = new FileReader(quotes);
+					List<String> lines = fileReader.readAllLines();
+					Random random = new Random();
+					int randomNumber = random.nextInt(lines.size());
+					output = lines.get(randomNumber);
+				}catch(IOException ioe){
+					IO.println("Cannot open file: "  + ioe.getMessage());
+				}catch(Exception e){
+					IO.println("Error while opening file: " + e.getMessage());
+				}finally{
+					if(fileReader != null) {
+						try{
+							fileReader.close();
+						}catch(Exception e){
+							IO.println("Cannot close file: " + e.getMessage());
+						}
+					}
+				}
+
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
