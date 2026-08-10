@@ -23,9 +23,6 @@ public class Cli {
     public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in); // Listen to the standard input (console)
 		System.out.print("> "); // Prompt
-		HashMap<String,String> aliases = new HashMap<String,String>();
-		aliases.put("logout", "exit");
-		aliases.put("print", "echo");
 
 		while (true) { // Infinite loop
 			String command = scanner.nextLine(); // Get input from console as a string
@@ -36,10 +33,8 @@ public class Cli {
 				arguments = decomposition[1].stripLeading();
 			}
 			String output = ""; // A variable named output of type String
-			if(aliases.containsKey(command)){
-				command = aliases.get(command);
-			}
-			if (command.equals("exit")) {
+		
+			if (command.equals("exit") || command.equals("logout")) {
 				break; // Forces exit of the while loop
 			}else if (command.equals("date")) {
 				output = LocalDate.now().toString();
@@ -56,23 +51,37 @@ public class Cli {
 			}else if (command.equals("printenv")){
 				if(arguments.isEmpty()){
 					Map<String,String> variables = System.getenv();
+					StringBuilder result = new StringBuilder();
 					for (Map.Entry<String,String> variable : variables.entrySet()){
-						output += variable.getKey() + "=" + variable.getValue() + "\n";	
+						result.append(variable.getKey());
+						result.append("=");
+						result.append(variable.getValue());
+						result.append(System.lineSeparator());
 					}
+					output = result.toString();
 				}else {
 					String value = System.getenv(arguments);
 					if (value != null){
 						output = value;
 					}
 				}
-			}else if (command.equals("echo")){
+			}else if (command.equals("echo") || command.equals("print")){
 				output = arguments;
 			}else if (command.equals("ls")){
-				File file = new File(arguments);
-				if (file.isDirectory()) {
-					String[] files = file.list();
-					for(String f : files){
-					output += f + "\n";
+				if(arguments.isEmpty()){
+					output = "Not a directory";
+				}else{
+					File file = new File(arguments);
+					if (file.isDirectory()) {
+						String[] files = file.list();
+						StringBuilder list = new StringBuilder();
+						for(String f : files){
+							list.append(f);
+							list.append(System.lineSeparator());
+						}
+						output = list.toString();
+					}else{
+						output = "Not a directory";
 					}
 				}
 
